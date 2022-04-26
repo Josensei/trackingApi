@@ -1,6 +1,7 @@
 ﻿using trackingApi.Services;
 using trackingApi.Models;
 using Microsoft.AspNetCore.Mvc;
+
 namespace trackingApi.Controllers
 {
     [ApiController]
@@ -19,7 +20,7 @@ namespace trackingApi.Controllers
         public async Task<ActionResult<Vehicle>> Get(string id)
         {
             var vehicle = await _vehiclesService.GetAsync(id);
-            if (vehicle == null)
+            if (vehicle is null)
             {
                 return NotFound();
             }
@@ -51,7 +52,8 @@ namespace trackingApi.Controllers
         {
             var vehicle = await _vehiclesService.GetAsync(id);
             if (vehicle is null)
-            { return NotFound();
+            { 
+                return NotFound();
             }
             await _vehiclesService.RemoveAsync(id);
             return NoContent();

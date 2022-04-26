@@ -7,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.Configure<TrackingDatabaseSettings>(
     builder.Configuration.GetSection("TrackingDatabase"));
 builder.Services.AddSingleton<VehiclesService>();
+builder.Services.AddSingleton<PedidosService>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

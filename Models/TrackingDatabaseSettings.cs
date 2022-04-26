@@ -5,6 +5,6 @@
         public string ConnectionString { get; set; } = null!;
         public string DatabaseName { get; set; } = null!;
         public string TrackingCollectionName { get; set; } = null!;
-
+        public string PedidosCollectionName { get; set; } = null!;
     }
 }
