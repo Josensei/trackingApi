@@ -1,10 +1,12 @@
 using trackingApi.Models;
+using trackingApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.Configure<VehiclesDatabaseSettings>(
-    builder.Configuration.GetSection("VehiclesDatabase"));
+builder.Services.Configure<TrackingDatabaseSettings>(
+    builder.Configuration.GetSection("TrackingDatabase"));
+builder.Services.AddSingleton<VehiclesService>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

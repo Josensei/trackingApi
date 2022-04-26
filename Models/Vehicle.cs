@@ -7,15 +7,11 @@ using MongoDB.Bson.Serialization.Attributes;
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string? Id { get; set; }
-
+        
         [BsonElement("Name")]
-        public string Matrícula { get; set; } = null!;
-
-        public string? Driver { get; set; } = null!;
-
+        public string matricula { get; set; } = null!;
+        public string? driver { get; set; }
         public string? position { get; set; } = null!;
-
-        public List<Pedido> pedido { get; set; } = new List<Pedido>();
-
+        public string pedido { get; set; } = null!;
     }
 }
