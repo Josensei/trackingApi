@@ -9,8 +9,13 @@ namespace trackingApi.Controllers
     public class VehiclesController : ControllerBase
     {
         private readonly VehiclesService _vehiclesService;
-        public VehiclesController(VehiclesService vehiclesService) =>
-                _vehiclesService = vehiclesService;
+        private readonly PedidosService _pedidosService;
+        
+        public VehiclesController(VehiclesService vehiclesService, PedidosService pedidosService)
+        {
+            _vehiclesService = vehiclesService;
+            _pedidosService = pedidosService;
+        }
 
         [HttpGet]
         public async Task<List<Vehicle>> Get() =>
@@ -51,7 +56,6 @@ namespace trackingApi.Controllers
         public async Task<IActionResult> UpdateLocation(string id, string gps)
         {
             Location location;
-            Vehicle coche = new Vehicle();
             Console.WriteLine(gps);
             
             try
@@ -60,7 +64,6 @@ namespace trackingApi.Controllers
             }
             catch (Exception ex)
             {
-               // Console.WriteLine(ex);
                 return BadRequest(ex.Message);
             };
             Console.WriteLine(location.Lat);
@@ -70,11 +73,55 @@ namespace trackingApi.Controllers
             {
                 return NotFound();
             }
-            
+            vehicle.locations.Add(location);
+            await _vehiclesService.UpdateAsync(id, vehicle);
 
             return NoContent();
         }
+       
+        [HttpPut("{id:length(24)}/Pedidos")]
+        public async Task<IActionResult> addOrder(string id, string pedidoID)
+        {
+            var vehicle = await _vehiclesService.GetAsync(id);
+            if (vehicle is null)
+            {
+                return NotFound();
+            }
+            var pedido = await _pedidosService.GetAsync(pedidoID);
+            if (pedido is null) 
+            {
+                return NotFound();
+            }
+            if (vehicle.pedidos.Contains(pedidoID))
+            {
+                return BadRequest("Pedido ya en el vehiculo");
+            }
+            vehicle.pedidos.Add(pedidoID);
+            await _vehiclesService.UpdateAsync(id, vehicle);
 
+            return NoContent();
+        }
+        [HttpPut("{id:length(24)}/DropPedidos")]
+        public async Task<IActionResult> dropOrder(string id, string pedidoID)
+        {
+            var vehicle = await _vehiclesService.GetAsync(id);
+            if (vehicle is null)
+            {
+                return NotFound();
+            }
+            var pedido = await _pedidosService.GetAsync(pedidoID);
+            if (pedido is null)
+            {
+                return NotFound();
+            }
+            if (vehicle.pedidos.Count() > 0)
+            {
+                vehicle.pedidos.Remove(pedidoID);
+
+                await _vehiclesService.UpdateAsync(id, vehicle);
+            }
+            return NoContent();
+        }
 
         [HttpDelete("{id:length(24)}")]
         public async Task<IActionResult> Delete(string id)

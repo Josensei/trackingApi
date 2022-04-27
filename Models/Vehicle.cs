@@ -13,6 +13,6 @@ using MongoDB.Bson.Serialization.Attributes;
         public List<Location> locations { get; set; }= new List<Location>();
 
         //public string? Position { get; set; } = null!;
-        public List<Pedido> pedidos { get; set; } = new List<Pedido>();
+        public List<string> pedidos { get; set; } = new List<string>();
     }
 }
