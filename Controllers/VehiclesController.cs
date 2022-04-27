@@ -47,6 +47,35 @@ namespace trackingApi.Controllers
 
             return NoContent();
         }
+        [HttpPut("{id:length(24)}/Location")]
+        public async Task<IActionResult> UpdateLocation(string id, string gps)
+        {
+            Location location;
+            Vehicle coche = new Vehicle();
+            Console.WriteLine(gps);
+            
+            try
+            {
+                location = new Location(gps);
+            }
+            catch (Exception ex)
+            {
+               // Console.WriteLine(ex);
+                return BadRequest(ex.Message);
+            };
+            Console.WriteLine(location.Lat);
+            Console.WriteLine(location.Long);
+            var vehicle = await _vehiclesService.GetAsync(id);
+            if (vehicle is null)
+            {
+                return NotFound();
+            }
+            
+
+            return NoContent();
+        }
+
+
         [HttpDelete("{id:length(24)}")]
         public async Task<IActionResult> Delete(string id)
         {
