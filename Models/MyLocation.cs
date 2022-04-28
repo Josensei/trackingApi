@@ -5,14 +5,14 @@ using System.Text.RegularExpressions;
 
 namespace trackingApi.Models
 {
-    public class Location
+    public class MyLocation
     {
         Regex gpsrx = new Regex(@"^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$");
         public DateTime CreationDate { get; set; }   
         public double Long { get; set; }
         public double Lat { get; set; }
 
-        public Location(string gps) { 
+        public MyLocation(string gps) { 
             if(!gpsrx.IsMatch(gps))
             {
                 throw new WrongFormatException("La cadena introducida no cumple el formato de coordenadas GPS");

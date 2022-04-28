@@ -10,7 +10,7 @@ using MongoDB.Bson.Serialization.Attributes;
               
         public string Matricula { get; set; } = null!;
         public string? Driver { get; set; }
-        public List<Location> locations { get; set; }= new List<Location>();
+        public List<MyLocation> locations { get; set; }= new List<MyLocation>();
 
         //public string? Position { get; set; } = null!;
         public List<string> pedidos { get; set; } = new List<string>();

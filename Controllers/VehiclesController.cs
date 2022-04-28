@@ -31,6 +31,33 @@ namespace trackingApi.Controllers
             }
             return vehicle;
         }
+        [HttpGet("{id:length(24)}/Distance")]
+        public async Task<ActionResult<double>> GetDistance(string id, string PedidoID )
+        {
+            double distancia = 0;
+
+            var vehicle = await _vehiclesService.GetAsync(id); 
+            var pedido = await _pedidosService.GetAsync(id);
+
+            if(vehicle is null) 
+            {
+                return NotFound(); 
+            }
+            if (!vehicle.pedidos.Contains(PedidoID))
+            {
+                return BadRequest("El pedido no esta en este vehiculo");
+            }
+            
+            distancia = vehicle.locations.Last().Long;
+            //uso la longitud como muestra, en realidad se calcularía la distancia con alguna API
+
+            //He visto que se puede calcular la distancia entre unas coordenadas y una dirección con la api de google maps,
+            //el problema es que para ello me tenia que registrar para consegir una api Key y necesitaba tarjeta de credito,
+            //asi que no queria perder tiempo con ello ni jugarme un posible cobro.
+
+            return distancia;
+        }
+
         [HttpPost]
         public async Task<IActionResult> Post(Vehicle newVehicle)
         {
@@ -46,6 +73,7 @@ namespace trackingApi.Controllers
             {
                 return NotFound();
             }
+
             updatedVehicle.Id = vehicle.Id;
 
             await _vehiclesService.UpdateAsync(id, updatedVehicle);
@@ -55,12 +83,12 @@ namespace trackingApi.Controllers
         [HttpPut("{id:length(24)}/Location")]
         public async Task<IActionResult> UpdateLocation(string id, string gps)
         {
-            Location location;
+            MyLocation location;
             Console.WriteLine(gps);
             
             try
             {
-                location = new Location(gps);
+                location = new MyLocation(gps);
             }
             catch (Exception ex)
             {
