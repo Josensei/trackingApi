@@ -10,11 +10,13 @@ namespace trackingApi.Controllers
     {
         private readonly VehiclesService _vehiclesService;
         private readonly PedidosService _pedidosService;
+        private readonly EmailService _emailService;
         
-        public VehiclesController(VehiclesService vehiclesService, PedidosService pedidosService)
+        public VehiclesController(VehiclesService vehiclesService, PedidosService pedidosService, EmailService emailService)
         {
             _vehiclesService = vehiclesService;
             _pedidosService = pedidosService;
+            _emailService = emailService;
         }
 
         [HttpGet]
@@ -102,7 +104,10 @@ namespace trackingApi.Controllers
                 return NotFound();
             }
             vehicle.locations.Add(location);
+            
             await _vehiclesService.UpdateAsync(id, vehicle);
+            // en primera instancia pense en utilizar el email para notificar la posicion , pero es poco practico
+            // await _emailService.SendEmailAsync("joclas.16@gmail.com", "Pedido", "la ubicacion de su pedido ha cambiado");
 
             return NoContent();
         }

@@ -14,9 +14,11 @@ namespace trackingApi.Services
                 trackingDatabaseSettings.Value.ConnectionString);
             var mongoDatabase = mongoClient.GetDatabase(
                 trackingDatabaseSettings.Value.DatabaseName);
-            _vehicles= mongoDatabase.GetCollection<Vehicle>(
+            _vehicles = mongoDatabase.GetCollection<Vehicle>(
                 trackingDatabaseSettings.Value.TrackingCollectionName);
         }
+
+
 
         public async Task<List<Vehicle>> GetAsync() =>
         await _vehicles.Find(_ => true).ToListAsync();
@@ -32,6 +34,6 @@ namespace trackingApi.Services
 
         public async Task RemoveAsync(string id) =>
             await _vehicles.DeleteOneAsync(x => x.Id == id);
-
+            
     }
 }

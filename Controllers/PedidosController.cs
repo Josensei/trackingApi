@@ -9,8 +9,13 @@ namespace trackingApi.Controllers
     public class PedidosController : ControllerBase
     {
         private readonly PedidosService _pedidosService;
-        public PedidosController(PedidosService pedidosService) =>
+        private readonly EmailService _emailService;
+        public PedidosController(PedidosService pedidosService, EmailService emailService)
+        {
             _pedidosService = pedidosService;
+            _emailService = emailService;
+        }
+
 
         [HttpGet]
         public async Task<List<Pedido>> Get()=>
@@ -42,8 +47,19 @@ namespace trackingApi.Controllers
                 return NotFound();
             }
             updatedPedido.Id=pedido.Id;
-               
             await _pedidosService.UpdateAsync(id, updatedPedido);
+            //notificacion de cambio de estado en los pedidos, lo hará de forma pasiva e
+            if (updatedPedido.email is not null)
+            {
+                if (updatedPedido.estadosdelpedido != pedido.estadosdelpedido)
+                {
+                    await _emailService.SendEmailAsync(updatedPedido.email, "Pedido", "El estado de su pedido es " + pedido.estadosdelpedido);
+
+                }
+            }else
+            {
+                Console.WriteLine("Pedido sin email asociado");
+            }
             return NoContent();
         }
         [HttpDelete("{id:length(24)}")]
