@@ -1,3 +1,4 @@
+//using trackingApi.Hubs;
 using trackingApi.Models;
 using trackingApi.Services;
 
@@ -10,6 +11,8 @@ builder.Services.AddSingleton<VehiclesService>();
 builder.Services.AddSingleton<PedidosService>();
 builder.Services.AddSingleton<EmailService>();
 builder.Services.AddControllers();
+builder.Services.AddSignalR();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -23,13 +26,16 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-
-
-
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
+
+//app.UseRouting();
+
+/*app.MapHub<ChatHub>("/Chathub");
+ Esto era para crear un Websocket usando SignalR, pero no he sido capaz :( */
+
 
 app.Run();

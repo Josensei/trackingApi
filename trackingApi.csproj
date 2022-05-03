@@ -9,13 +9,10 @@
   <ItemGroup>
     <PackageReference Include="Geocoding.Google" Version="4.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Common" Version="6.0.4" />
     <PackageReference Include="MongoDB.Driver" Version="2.15.0" />
     <PackageReference Include="NETCore.MailKit" Version="2.0.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="DB\" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>

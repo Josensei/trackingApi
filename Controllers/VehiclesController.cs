@@ -1,6 +1,8 @@
 ﻿using trackingApi.Services;
 using trackingApi.Models;
 using Microsoft.AspNetCore.Mvc;
+using trackingApi.Hubs;
+using Microsoft.AspNetCore.SignalR;
 
 namespace trackingApi.Controllers
 {
@@ -12,11 +14,16 @@ namespace trackingApi.Controllers
         private readonly PedidosService _pedidosService;
         private readonly EmailService _emailService;
         
+       // private readonly IHubContext<ChatHub> _hubContext; //Para SignalR
+
+
+
         public VehiclesController(VehiclesService vehiclesService, PedidosService pedidosService, EmailService emailService)
         {
             _vehiclesService = vehiclesService;
             _pedidosService = pedidosService;
             _emailService = emailService;
+           // _hubContext = hubContext;
         }
 
         [HttpGet]
@@ -106,6 +113,9 @@ namespace trackingApi.Controllers
             vehicle.locations.Add(location);
             
             await _vehiclesService.UpdateAsync(id, vehicle);
+            // await _hubContext.Clients.All.SendAsync("ReceiveMessage", "the weatherman", " The temperature will be ").ConfigureAwait(false);
+            // el codigo de arriba era para intentar el websocket
+
             // en primera instancia pense en utilizar el email para notificar la posicion , pero es poco practico
             // await _emailService.SendEmailAsync("joclas.16@gmail.com", "Pedido", "la ubicacion de su pedido ha cambiado");
 
