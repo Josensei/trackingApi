@@ -11,7 +11,7 @@ El primer intento no contenia ningun tipo de persistencia, usaba un Dbcontext pa
 eso fue el motivo para cambiar a este segundo intento, utilizo la plantilla de visual studio para web APIs.
 
 Las funciones están divididas en Pedidos y Vehiculos, En pedidos se gestiona principalmente la creacion de estos, así como la modificacion de los mismos 
-o incluso su eliminacion si fuera necesario, todo lo que ocurre en estas peticiones se persiste en una BDD, de mongoDB https://www.mongodb.com/(excepto los get). 
+o incluso su eliminacion si fuera necesario, todo lo que ocurre en estas peticiones se persiste en una BDD, de mongoDB https://www.mongodb.com/ (excepto los get). 
 Como funcionalidad añadida, la clase pedido tiene un atributo estado, si este estado cambia se enviaría un correo al email asociado al pedido.
 
 Vehiculos tiene las mismas funciones que pedidos y otras añadidas, estas funcionalidades son
