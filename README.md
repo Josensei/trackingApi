@@ -19,7 +19,7 @@ GET distance: El vehiculo cogería la direccion del pedido y su última  ubicaci
 desafortunadamente no he podido darle bien la funcionalidad a esta èticion porque la API de Google me pedía registrar una tarjeta de crédito,
 he visto la API de Google y he visto que no sería complicado pero no he podido hacerlo.
 
-Put Location: agrega localizacoines mediante coordenadas GPS, se comprueba el formato de als coordenadas antes de añadirlas.
+Put Location: agrega localizaciones mediante coordenadas GPS, se comprueba el formato de las coordenadas antes de añadirlas y las añade a la lista de localizaciones del vehiculo, la lista sirve de historial dado qeu se almacena en la BBDD.
 
 Put Pedido: agrega el ID de un pedido al vehiculo, empecé haciendolo con el objeto, pero pensé que no tenia sentido, debido a que entonces
 havbría que hacer cascada con los cambios de informacion del pedido.
