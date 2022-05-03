@@ -24,9 +24,9 @@ Put Location: agrega localizaciones mediante coordenadas GPS, se comprueba el fo
 Put Pedido: agrega el ID de un pedido al vehiculo, empecé haciendolo con el objeto, pero pensé que no tenia sentido, debido a que entonces
 havbría que hacer cascada con los cambios de informacion del pedido.
 
-Put DropPedido: Localiza un ID de pedido en la lista de pedidos del vehiculo y lo saca de la misma.
+Put DropPedido: Localiza un ID de pedido en la lista de pedidos del vehiculo y lo elimina de la misma.
 
 
 Nivel 2: Para el nivel 2 pensé en utilizar un websocket, vi que aparentemente usando la libreria SignalR podia conseguir lo que necesitaba, tras varios intentos
-no he conseguido agregar la funcionalidad al programa, pero a raiz de pensar alternativas surgió la funcionalidad añadida de enviar el correo en un cambio de estado. 
+finalmente no he conseguido agregar la funcionalidad al programa, pero a raiz de pensar alternativas surgió la funcionalidad añadida de enviar el correo en un cambio de estado. 
 No es una actualizacion en tiempo real, pero da informacion al usuarto del servicio.
